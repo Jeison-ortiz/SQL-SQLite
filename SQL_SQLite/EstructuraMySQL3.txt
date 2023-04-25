@@ -1,0 +1,78 @@
+
+CREATE TABLE materias (idMateria INT NOT NULL AUTO_INCREMENT,
+    -> Materia VARCHAR(30) NOT NULL UNIQUE,
+    -> PRIMARY KEY (idMateria));
+
+
+CREATE TABLE IF NOT EXISTS asignaturas(idAsignatura INT NOT NULL AUTO_INCREMENT,
+    -> Asignatura VARCHAR(30) NOT NULL,
+    -> MateriaAsignatura INT NOT NULL,
+    -> PRIMARY KEY (idAsignatura),
+    -> FOREIGN KEY (MateriaAsignatura) REFERENCES materias(idMateria));
+
+
+CREATE TABLE IF NOT EXISTS cursos(idCurso INT NOT NULL AUTO_INCREMENT,
+    -> Nombre VARCHAR(30) NOT NULL,
+    -> AsignaturaCurso INT NOT NULL,
+    -> PRIMARY KEY (idCurso),
+    -> FOREIGN KEY (AsignaturaCurso) REFERENCES asignaturas(idAsignatura));
+
+
+CREATE TABLE IF NOT EXISTS estudiantes(idEstudiante INT NOT NULL AUTO_INCREMENT,
+    -> Documento VARCHAR(15) NOT NULL UNIQUE,
+    -> Nombre VARCHAR(30),
+    -> Apellido VARCHAR(30),
+    -> FechaNacimiento DATE,
+    -> Edad SMALLINT,
+    -> FechaIngreso DATE,
+    -> PRIMARY KEY (idEstudiante));
+
+
+CREATE TABLE IF NOT EXISTS inscripcionesCurso(idInscripcionesCurso INT NOT NULL AUTO_INCREMENT,
+    -> EstudianteInscrito INT NOT NULL,
+    -> CursoInscrito INT NOT NULL,
+    -> PRIMARY KEY(idInscripcionesCurso),
+    -> FOREIGN KEY(EstudianteInscrito) REFERENCES estudiantes(idEstudiante),
+    -> FOREIGN KEY(CursoInscrito) REFERENCES Cursos(idCurso));
+
+
+
+
+
+ALTER TABLE materias ADD(Eliminado TINYINT(4) NOT NULL);
+
+ALTER TABLE asignaturas ADD(Eliminado TINYINT(4) NOT NULL);
+
+CREATE TABLE IF NOT EXISTS docentes(idDocente INT NOT NULL AUTO_INCREMENT,
+    -> Nombre VARCHAR(45),
+    -> Apellido VARCHAR(45),
+    -> Documento VARCHAR(45) NOT NULL UNIQUE,
+    -> FNac DATE,
+    -> Edad INT,
+    -> Grado INT,
+    -> FIngreso DATE,
+    -> Eliminado TINYINT,
+    -> PRIMARY KEY(idDocente));
+
+ALTER TABLE Cursos ADD(Docente INT NOT NULL);
+ALTER TABLE Cursos ADD(FOREIGN KEY(Docente) REFERENCES Docentes(idDocente));
+
+ALTER TABLE Cursos ADD(Puntaje INT, Edicion INT, anno INT, Eliminado TINYINT(4), Estado TEXT);
+
+ALTER TABLE Estudiantes ADD(Eliminado TINYINT(4));
+
+CREATE TABLE IF NOT EXISTS Examenes(idExamen INT NOT NULL AUTO_INCREMENT,
+    -> ExamenesCurso INT,
+    -> Fecha DATE,
+    -> Eliminado TINYINT(4),
+    -> PRIMARY KEY(idExamen),
+    -> FOREIGN KEY(ExamenesCurso) REFERENCES Cursos(idCurso));
+
+CREATE TABLE IF NOT EXISTS RendicionesExamenes(idRendicionesExamenes INT NOT NULL AUTO_INCREMENT,
+    -> Examen INT,
+    -> Inscripcion INT,
+    -> Nota SMALLINT,
+    -> Eliminado TINYINT(4),
+    -> PRIMARY KEY(idRendicionesExamenes),
+    -> FOREIGN KEY(Examen) REFERENCES Examenes(idExamen),
+    -> FOREIGN KEY(Inscripcion) REFERENCES InscripcionesCurso(idInscripcionesCurso));

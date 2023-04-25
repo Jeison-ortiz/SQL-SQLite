@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS Materias(idMaterias INTEGER PRIMARY KEY AUTOINCREMENT, Materia TEXT);
+
+CREATE TABLE IF NOT EXISTS Asignaturas(idAsignatura INTEGER PRIMARY KEY AUTOINCREMENT, Asignatura TEXT NOT NULL UNIQUE, MateriaAsignatura INTEGER NOT NULL,FOREIGN KEY (MateriaAsignatura)REFERENCES Materias(idMateria));
+
+CREATE TABLE IF NOT EXISTS Cursos(idCurso INTEGER PRIMARY KEY AUTOINCREMENT, Nombre TEXT NOT NULL, AsignaturaCurso INTEGER NOT NULL,FOREIGN KEY (AsignaturaCurso)REFERENCES Asignaturas(idAsignatura));
+
+CREATE TABLE IF NOT EXISTS Estudiantes(idEstudiante INTEGER PRIMARY KEY AUTOINCREMENT, Documento TEXT NOT NULL UNIQUE, Nombre TEXT NOT NULL, Apellido TEXT NOT NULL, FechaNacimiento TEXT, Edad INTEGER, FechaIngreso TEXT);
+
+CREATE TABLE IF NOT EXISTS InscripcionesCursos(idInscripcionesCurso INTEGER PRIMARY KEY AUTOINCREMENT, EstudianteInscrito INTEGER NOT NULL, CursoInscrito INTEGER NOT NULL, FOREIGN KEY (EstudianteInscrito) REFERENCES estudiantes(idEstudiante), FOREIGN KEY (CursoInscrito) REFERENCES Cursos(idCurso));

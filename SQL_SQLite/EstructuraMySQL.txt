@@ -1,0 +1,37 @@
+ALTER TABLE materias ADD(Eliminado TINYINT(4) NOT NULL);
+
+ALTER TABLE asignaturas ADD(Eliminado TINYINT(4) NOT NULL);
+
+CREATE TABLE IF NOT EXISTS docentes(idDocente INT NOT NULL AUTO_INCREMENT,
+    -> Nombre VARCHAR(45),
+    -> Apellido VARCHAR(45),
+    -> Documento VARCHAR(45) NOT NULL UNIQUE,
+    -> FNac DATE,
+    -> Edad INT,
+    -> Grado INT,
+    -> FIngreso DATE,
+    -> Eliminado TINYINT,
+    -> PRIMARY KEY(idDocente));
+
+ALTER TABLE Cursos ADD(Docente INT NOT NULL);
+ALTER TABLE Cursos ADD(FOREIGN KEY(Docente) REFERENCES Docentes(idDocente));
+
+ALTER TABLE Cursos ADD(Puntaje INT, Edicion INT, anno INT, Eliminado TINYINT(4), Estado TEXT);
+
+ALTER TABLE Estudiantes ADD(Eliminado TINYINT(4));
+
+CREATE TABLE IF NOT EXISTS Examenes(idExamen INT NOT NULL AUTO_INCREMENT,
+    -> ExamenesCurso INT,
+    -> Fecha DATE,
+    -> Eliminado TINYINT(4),
+    -> PRIMARY KEY(idExamen),
+    -> FOREIGN KEY(ExamenesCurso) REFERENCES Cursos(idCurso));
+
+CREATE TABLE IF NOT EXISTS RendicionesExamenes(idRendicionesExamenes INT NOT NULL AUTO_INCREMENT,
+    -> Examen INT,
+    -> Inscripcion INT,
+    -> Nota SMALLINT,
+    -> Eliminado TINYINT(4),
+    -> PRIMARY KEY(idRendicionesExamenes),
+    -> FOREIGN KEY(Examen) REFERENCES Examenes(idExamen),
+    -> FOREIGN KEY(Inscripcion) REFERENCES InscripcionesCurso(idInscripcionesCurso));
