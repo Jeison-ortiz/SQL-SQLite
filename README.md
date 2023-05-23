@@ -1,7 +1,7 @@
 ### SQL & SQLite
 ![](https://img-c.udemycdn.com/course/480x270/4057566_5cef_2.jpg)
 
-Este proyecto consta de cuatro actividades diseñadas como parte de un proceso de aprendizaje. Cada actividad presenta un nivel de dificultad creciente y se incluyen los archivos correspondientes junto con sus datos respectivos.
+Este proyecto consta de cuatro actividades diseñadas como parte de un proceso de aprendizaje. Se aborda la mayoria de actividades en SQL y SQLite. Cada actividad presenta un nivel de dificultad creciente y se incluyen los archivos correspondientes junto con sus datos respectivos.
 
 ######  Hola Mundo:
 Introducción a los comandos básicos de SQL, Aquí encontrarás ejemplos que te guiarán en el aprendizaje de cómo manipular tablas de manera efectiva.
